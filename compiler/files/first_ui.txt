@@ -1,0 +1,76 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="container">
+      <div class="product-details" *ngIf="selectedProduct">
+        <h2>{{ selectedProduct.name }}</h2>
+        <img [src]="selectedProduct.image" alt="{{ selectedProduct.name }}" class="product-image" />
+        <p>{{ selectedProduct.details }}</p>
+      </div>
+
+      <div class="product-list">
+        <div
+          class="product-item"
+          *ngFor="let product of products"
+          (click)="selectProduct(product)">
+          <h3>{{ product.name }}</h3>
+          <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product-details {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .product-image {
+        max-width: 200px;
+        height: auto;
+        margin-top: 10px;
+      }
+
+      .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .product-item {
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      .product-item h3 {
+        margin: 10px 0;
+      }
+    `
+  ]
+})
+export class AppComponent {
+  title = 'Product Catalog';
+  products = [
+    { name: 'Product 1', image: 'assets/product1.jpg', details: 'Details of Product 1' },
+    { name: 'Product 2', image: 'assets/product2.jpg', details: 'Details of Product 2' },
+    { name: 'Product 3', image: 'assets/product3.jpg', details: 'Details of Product 3' }
+  ];
+
+  selectedProduct: { name: string; image: string; details: string } | null = null;
+
+  selectProduct(product: { name: string; image: string; details: string }) {
+    this.selectedProduct = product;
+  }
+}
