@@ -1,4 +1,4 @@
-// Generated from C:/Users/Rahaf/Downloads/compiler (2)/compiler/src/antlr/AngulerLexer.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Rahaf/Desktop/comp/compiler-project/compiler/src/antlr/AngulerLexer.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

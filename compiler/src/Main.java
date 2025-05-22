@@ -1,15 +1,36 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import AST.TypeAnnotation;
+import Visitor.BaseVisitor;
+import antlr.AngulerLexer;
+import antlr.AngulerParser;
+import org.antlr.runtime.tree.TreeWizard;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+import static org.antlr.v4.runtime.CharStreams.fromFileName;
+import java.io.IOException;
+
+
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String source = "files/first_ui.txt";
+        CharStream cs = fromFileName(source);
+        AngulerLexer lexer = new AngulerLexer(cs);  // Fixed capitalization
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        AngulerParser parser = new AngulerParser(token);
+        ParseTree tree = parser.type_annotation();
+
+        // Create visitor instance first
+        BaseVisitor visitor = new BaseVisitor();
+        TypeAnnotation doc = (TypeAnnotation) visitor.visit(tree);
+
+
+
+        // Print results
+        System.out.println("=== Program Structure ===");
+        System.out.println(doc);
+
+
     }
 }
